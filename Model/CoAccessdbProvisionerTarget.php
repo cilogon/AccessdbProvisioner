@@ -1,7 +1,7 @@
 <?php
 
 App::uses("CoProvisionerPluginTarget", "Model");
-App::uses("AccessOrganization", "AccessOrganization");
+App::uses("AccessOrganization", "AccessOrganization.Model");
 
 class CoAccessdbProvisionerTarget extends CoProvisionerPluginTarget {
   // Define class name for cake
