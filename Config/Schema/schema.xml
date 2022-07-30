@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<!--
+  While this schema mostly works with database prefixes, foreign key constraints
+  must be specified in raw SQL, which needs the prefixed table name.
+-->
+<schema version="0.3">
+  <table name="co_accessdb_provisioner_targets">
+    <field name="id" type="I">
+      <key />
+      <autoincrement />
+    </field>
+    <field name="co_provisioning_target_id" type="I">
+      <constraint>REFERENCES cm_co_provisioning_targets(id)</constraint>
+    </field>
+    <field name="server_id" type="I">
+      <constraint>REFERENCES cm_servers(id)</constraint>
+    </field>
+    <field name="identifier_type" type="C" size="256" />
+    <field name="created" type="T" />
+    <field name="modified" type="T" />
+    
+    <index name="co_accessdb_provisioner_targets_i1">
+      <col>co_provisioning_target_id</col>
+      <unique />
+    </index>
+  </table>
+</schema>
