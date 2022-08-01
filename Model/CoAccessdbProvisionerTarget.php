@@ -139,8 +139,7 @@ class CoAccessdbProvisionerTarget extends CoProvisionerPluginTarget {
     
     if($deletePerson) {
       $this->deletePerson($coProvisioningTargetData['CoAccessdbProvisionerTarget'],
-                          $provisioningData['CoPerson']['id'],
-                          $provisioningData['Identifier']);
+                          $provisioningData['CoPerson']['id']);
     }
 
     if($syncPerson) {
@@ -155,14 +154,12 @@ class CoAccessdbProvisionerTarget extends CoProvisionerPluginTarget {
    * @since  COmanage Registry v4.1.0
    * @param  array            $coAccessdbProvisionerTarget CoAccessdbProvisioningTarget
    * @param  Integer          $coPersonId             CoPerson ID
-   * @param  Array            $identifiers            Array of person's identifiers
    * @return boolean          true
    * @throws RuntimeException
    */
   
   protected function deletePerson($coAccessdbProvisionerTarget,
-                                  $coPersonId,
-                                  $identifiers) {
+                                  $coPersonId) {
     // Currently delete is a no-op.
     return true;
   }
