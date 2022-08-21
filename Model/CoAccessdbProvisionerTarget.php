@@ -345,7 +345,7 @@ class CoAccessdbProvisionerTarget extends CoProvisionerPluginTarget {
 
     // We provision the first official verified email we find.
     foreach($provisioningData['EmailAddress'] as $email) {
-      if(($email['type'] == EmailAddressEnum::Official) && ($email['verified'])){
+      if(($email['type'] == EmailAddressEnum::Official) && ($email['verified']) && empty($email['source_email_address_id'])){
         if($profileExists) {
           if($email['mail'] != $profile['email']) {
             $message['email'] = $email['mail'];
