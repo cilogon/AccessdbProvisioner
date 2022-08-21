@@ -421,7 +421,9 @@ class CoAccessdbProvisionerTarget extends CoProvisionerPluginTarget {
     
     if($response->code != $expectedCode) {
       $msg = "ACCESS DB Provisioner: ";
-      $msg = $msg . "Unable to $errorString profile for CoPerson $coPersonId with ACCESS ID $accessId";
+      $msg = $msg . "Unable to $errorString profile for CoPerson $coPersonId with ACCESS ID $accessId: ";
+      $msg = $msg . "Return code was " . print_r($response->code, true) . ": ";
+      $msg = $msg . "Message sent was " . print_r(json_encode($message), true);
       $this->log($msg);
       throw new RuntimeException($msg);
     } else {
