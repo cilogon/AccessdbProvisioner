@@ -56,6 +56,22 @@ class CoAccessdbProvisionerTarget extends CoProvisionerPluginTarget {
       )
     )
   );
+
+  /**
+   * Convenience method to write a message to CakeLog. Subclass of parent.
+   *
+   * @param mixed $msg Log message
+   * @param int $type Error type constant.
+   * @param null|string|array $scope The scope(s) a log message is being created in.
+   *    See CakeLog::config() for more information on logging scopes.
+   * @return bool Success of log write
+   */
+
+  public function log($msg, $type = LOG_ERR, $scope = null) {
+    $msg = "CoAccessdbProvisionerTarget: " . $msg;
+
+    return parent::log($msg, $type, $scope);
+  }
   
   /**
    * Provision for the specified CO Person.
@@ -69,6 +85,8 @@ class CoAccessdbProvisionerTarget extends CoProvisionerPluginTarget {
    */
   
   public function provision($coProvisioningTargetData, $op, $provisioningData) {
+    $this->log("function provision is called");
+
     // First determine what to do
 
     // We don't do anything for CoGroup actions.
@@ -146,6 +164,8 @@ class CoAccessdbProvisionerTarget extends CoProvisionerPluginTarget {
       $this->syncPerson($coProvisioningTargetData['CoAccessdbProvisionerTarget'],
                         $provisioningData);
     }
+
+    $this->log("function provision is exiting");
   }
   
   /**
