@@ -437,7 +437,9 @@ class CoAccessdbProvisionerTarget extends CoProvisionerPluginTarget {
     }
 
     // Update or create profile.
+    $this->log("Begin callout to central database endpoint /people");
     $response = $this->Http->{$verb}("/people/" . $accessId, json_encode($message));
+    $this->log("Callout to central database endpoint /people completed");
     
     if($response->code != $expectedCode) {
       $msg = "ACCESS DB Provisioner: ";
