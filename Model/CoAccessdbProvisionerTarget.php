@@ -299,8 +299,9 @@ class CoAccessdbProvisionerTarget extends CoProvisionerPluginTarget {
   protected function syncPerson($coProvisioningTarget,
                                 $provisioningData) {
     $coPersonId = $provisioningData['CoPerson']['id'];
+    $coPersonStatus = $provisioningData['CoPerson']['status'];
+
     // Find the identifier of the requested identifier type
-    
     $identifierType = $coProvisioningTarget['identifier_type'];
     $accessId = null;
     
@@ -331,6 +332,14 @@ class CoAccessdbProvisionerTarget extends CoProvisionerPluginTarget {
       $msg = "ACCESS DB returned code " . $response->code;
       $this->log($msg);
       throw new RuntimeException($msg);
+    }
+
+    // Do not create a profile for CO Person records that are not
+    // Active or GracePeriod.
+    if(!$profileExists && ($coPersonStatus != StatusEnum::Active) && ($coPersonStatus != StatusEnum::GracePeriod)) {
+      $msg = "Profile for $accessId does not exist and CO Person record is not Active or GracePeriod so not provisioning";
+      $this->log($msg);
+      return true;
     }
     
     // Marshall the message body.
