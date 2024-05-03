@@ -424,6 +424,26 @@ class CoAccessdbProvisionerTarget extends CoProvisionerPluginTarget {
         $message['organizationId'] = $accessOrganizationId;
     }
 
+    // CIL-1938 Provision the most recent Terms & Conditions "agreed to" time
+    $latest_agreement_time = 0;
+    foreach($provisioningData['CoTAndCAgreement'] as $tc) {
+      if(!empty($tc['agreement_time'])
+         && !empty($tc['CoTermsAndConditions']['url'])
+         && $tc['CoTermsAndConditions']['status'] == SuspendableStatusEnum::Active) {
+        $agreement_time = strtotime($tc['agreement_time']);
+        if($agreement_time > $latest_agreement_time) {
+          $latest_agreement_time = $agreement_time;
+        }
+      }
+    }
+    if($profileExists) {
+      if($latest_agreement_time != $profile['agreementTime']) {
+        $message['agreementTime'] = $latest_agreement_time;
+      }
+    } else {
+      $message['agreementTime'] = $latest_agreement_time;
+    }
+
     // If no changes are necessary just return true.
     if($profileExists && empty($message)) {
       $msg = "ACCESS DB Provisioner: ";
