@@ -305,6 +305,12 @@ class CoAccessdbProvisionerTarget extends CoProvisionerPluginTarget {
     $identifierType = $coProvisioningTarget['identifier_type'];
     $accessId = null;
     
+    if(empty($provisioningData['Identifier'])) {
+      $msg = "In function syncPerson: provisioningData for CoPerson $coPersonId has no Identifier. Skipping.";
+      $this->log($msg);
+      return true;
+    }
+
     $ids = Hash::extract($provisioningData['Identifier'], '{n}[type='.$identifierType.']');
 
     if(empty($ids)) {
