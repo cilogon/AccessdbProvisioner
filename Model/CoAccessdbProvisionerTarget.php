@@ -410,6 +410,7 @@ class CoAccessdbProvisionerTarget extends CoProvisionerPluginTarget {
 
     $args = array();
     $args['conditions']['AccessOrganization.name'] = $organizationName;
+    $args['conditions']['AccessOrganization.status'] = AccessOrganizationStatusEnum::Active;
     $args['contain'] = false;
 
     $accessOrganization = $accessOrganizationModel->find('first', $args);
